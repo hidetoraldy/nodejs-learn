@@ -1,0 +1,11 @@
+{
+  "name": "4.-npm-intro",
+  "version": "1.0.0",
+  "description": "belajar node js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aldy Ramadhan",
+  "license": "ISC"
+}
