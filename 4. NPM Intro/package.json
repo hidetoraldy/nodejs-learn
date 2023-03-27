@@ -9,5 +9,8 @@
     "dev": "ls"
   },
   "author": "Aldy Ramadhan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "validator": "^13.9.0"
+  }
 }
