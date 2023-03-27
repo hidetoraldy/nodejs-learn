@@ -8,4 +8,9 @@
 // const PI = require('./coba');
 const coba = require('./coba');
 
-console.log(coba.cetakNama('Aldy'), coba.PI);
+console.log(
+    coba.cetakNama('Aldy'), 
+    coba.PI, 
+    coba.mahasiswa.cetakMhs(), 
+    new coba.Orang
+);
