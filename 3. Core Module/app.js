@@ -15,3 +15,13 @@ const fs = require('fs');
 // fs.writeFile('data/test.txt', 'Hello world asynchronus ver.', (e) => {
 //     console.log(e);
 // });
+
+//? membaca file secara synchronus
+// const data = fs.readFileSync('data/test.txt', 'utf-8');
+// console.log(data);
+
+//? membaca file secara asynchronus
+// fs.readFile('data/test.txt', 'utf-8', (e, data) => {
+//     if (e) throw e;
+//     console.log(data);
+// })
