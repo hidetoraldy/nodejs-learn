@@ -25,3 +25,18 @@ const fs = require('fs');
 //     if (e) throw e;
 //     console.log(data);
 // })
+
+//? Readline
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Masukkan nama Anda : ', (nama) => {
+    //console.log(`Terimakasih ${nama}`);
+    rl.question('Masukkan no. HP Anda : ', (noHP) => {
+        console.log(`Terima kasih ${nama} dengan no. HP ${noHP}`);
+        rl.close();
+    })
+});
