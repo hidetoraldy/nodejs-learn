@@ -5,12 +5,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app",
+    "start": "nodemon app",
     "dev": "ls"
   },
   "author": "Aldy Ramadhan",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.0",
     "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
