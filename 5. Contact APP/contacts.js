@@ -3,6 +3,7 @@ const readline = require('readline');
 const fs = require('fs');
 const { resolve } = require('path');
 const { rejects } = require('assert');
+
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -34,6 +35,14 @@ const simpanContact = (nama, email, noHP) => {
         email,
         noHP
     };
+
+    //? cek duplikasi data
+    const duplikat = contacts.find((contact) => contact.email === email);
+        if (duplikat) {
+            console.log('Data contact telah terdaftar, silahkan gunakan data lain!');
+            return false;
+        }
+
     const file = fs.readFileSync('data/contacts.json', 'utf-8');
     const contacts = JSON.parse(file);
     contacts.push(contact);
