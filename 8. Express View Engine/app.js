@@ -2,23 +2,34 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+//? menggunakan ejs
+app.set('view engine', 'ejs');
+
 app.get('/', (req, res) => {
-    // res.send('Hello World!');
-    res.sendFile('./index.html', {root: __dirname});
+    //res.sendFile('./index.html', {root: __dirname});
+    const mahasiswa = [
+        {
+            nama: 'Aldy',
+            email: 'aldy@gmail.com',
+        },
+        {
+            nama: 'Ramadhan',
+            email: 'ramadhan@gmail.com',
+        },
+    ];
+    res.render('index', {
+        nama: 'Aldy', 
+        title: 'Home',
+        mahasiswa,
+    });
 });
 
 app.get('/about', (req, res) => {
-    // res.send('Halaman About');
-    // res.json({
-    //     nama : 'Aldy',
-    //     umur: 24,
-    // });
-    res.sendFile('./about.html', {root: __dirname});
+    res.render('about', {title: 'About'});
 });
 
 app.get('/contact', (req, res) => {
-    // res.send('Halaman contact');
-    res.sendFile('./contact.html', {root: __dirname});
+    res.render('contact', {title: 'Contact'});
 });
 
 app.get('/product/:id', (req, res) => {
@@ -34,51 +45,3 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
 
-// const http = require('http');
-// const fs = require('fs');
-// const port = 3000;
-
-// const renderHTML = (path, res) => {
-//     fs.readFile(path, (e, data) => {
-//         if(e) {
-//             res.writeHead(404);
-//             res.write(`Error: file not found!`);
-//         } else {
-//             res.write(data);
-//         }
-//         res.end();
-//     });
-// };
-
-// http
-//     .createServer((req, res) => {
-//         // console.log(url);
-//         res.writeHead(200, {
-//             'Content-Type' : 'text/html',
-//         });
-
-//         const url = req.url;
-
-//         switch(url){
-//             case '/about':
-//                 renderHTML('./about.html', res);
-//                 break;
-//             case '/contact':
-//                 renderHTML('./contact.html', res);
-//                 break;
-//             default:
-//                 renderHTML('./index.html', res);
-//                 break;
-//         }
-
-//         // if(url === '/about'){
-//         //     renderHTML('./about.html', res);
-//         // } else if (url === '/contact'){
-//         //     renderHTML('./contact.html', res);
-//         // } else {
-//         //     renderHTML('./index.html', res)
-//         // }
-//     })
-//     .listen(port, () => {
-//         console.log(`Server is listening on port ${port}..`);
-//     });
