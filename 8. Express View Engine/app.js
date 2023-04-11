@@ -1,9 +1,11 @@
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const port = 3000;
 
 //? menggunakan ejs
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
 app.get('/', (req, res) => {
     //res.sendFile('./index.html', {root: __dirname});
@@ -21,15 +23,21 @@ app.get('/', (req, res) => {
         nama: 'Aldy', 
         title: 'Home',
         mahasiswa,
+        layout: 'layouts/main-layouts',
     });
 });
 
 app.get('/about', (req, res) => {
-    res.render('about', {title: 'About'});
+    res.render('about', {
+        layout: 'layouts/main-layouts',
+        title: 'About',
+    });
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact', {title: 'Contact'});
+    res.render('contact', {
+        layout: 'layouts/main-layouts',
+        title: 'Contact',});
 });
 
 app.get('/product/:id', (req, res) => {
