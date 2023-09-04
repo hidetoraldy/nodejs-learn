@@ -1,6 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const { loadContact, findContact, addContact, cekDuplikat } = require('./utils/contacts');
+const { loadContact, findContact, addContact, cekDuplikat, deleteContact, updateContacts } = require('./utils/contacts');
 const { body, validationResult, check } = require('express-validator');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -104,7 +104,65 @@ app.post('/contact', [
 
         res.redirect('/contact');
     }
-    
+});
+
+//? Proses delete kontak
+app.get('/contact/delete/:nama', (req, res) => {
+    const contact = findContact(req.params.nama);
+
+    //? Jika kontak tidak ada
+    if (!contact) {
+        res.status(404);
+        res.send('error');
+    } else {
+        deleteContact(req.params.nama);
+        //? Flash message
+        req.flash('msg', 'Data kontak berhasil dihapus!');
+
+        res.redirect('/contact');
+    }
+});
+
+//? Form ubah data kontak
+app.get('/contact/edit/:nama', (req, res) => {
+    const contact = findContact(req.params.nama);
+
+    res.render('edit-contact', {
+        title : 'Form Ubah Data Kontak',
+        layout : 'layouts/main-layouts',
+        contact, 
+    });
+});
+
+//? Proses ubah data
+app.post('/contact/update', [
+    body('nama').custom((value, { req }) => {
+        const duplikat = cekDuplikat(value);
+        if (value !== req.body.oldNama && duplikat){
+            throw new Error('Nama kontak sudah terdaftar');
+        }
+        return true;
+    }),
+    check('email', 'Email tidak valid').isEmail(),
+    check('nohp', 'No. Handphone tidak valid').isMobilePhone('id-ID')
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        //return res.status(400).json({ errors: errors.array()});
+        res.render('edit-contact', {
+            title : 'Form ubah data kontak',
+            layout : 'layouts/main-layouts',
+            errors : errors.array(),
+            contact : req.body,
+        });
+    } else {
+        updateContacts(req.body);
+
+        //? Flash message
+        req.flash('msg', 'Data kontak berhasil diubah');
+
+        res.redirect('/contact');
+    }
 });
 
 //? Halaman detail kontak
