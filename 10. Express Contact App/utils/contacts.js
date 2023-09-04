@@ -24,8 +24,26 @@ const findContact = (nama) => {
     const contacts = loadContact();
     const contact = contacts.find((contact) => contact.nama.toLowerCase() === nama.toLowerCase());
     return contact;
+};
+
+//? Menulis/Menimpa isi file contact.json dengan data baru
+const saveContacts = (contacts) => {
+    fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
+};
+
+//? Menambahkan data contact baru
+const addContact = (contact) => {
+    const contacts = loadContact();
+    contacts.push(contact);
+    saveContacts(contacts);
+};
+
+//? Mengecek nama yang duplikat
+const cekDuplikat = (nama) => {
+    const contacts = loadContact();
+    return contacts.find((contact) => contact.nama === nama);
 }
 
 module.exports = {
-    loadContact, findContact
+    loadContact, findContact, addContact, cekDuplikat
 };
